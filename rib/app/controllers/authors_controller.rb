@@ -17,6 +17,10 @@ class AuthorsController < BaseController
 	end
 
 	def create
-
+		@author = Authors.new params[:books]
+		if @author.valid?
+			@author.save!
+		end
+		redirect_to :action => :index
 	end
 end

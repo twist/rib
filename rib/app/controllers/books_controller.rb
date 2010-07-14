@@ -17,12 +17,11 @@ class BooksController < BaseController
 	end
 
 	def create
-
 		@book = Books.new params[:books]
 		if @book.valid?
 			@book.save!
 		end
-		
+		redirect_to :action => :index
 	end
 
 end
