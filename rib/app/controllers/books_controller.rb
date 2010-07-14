@@ -6,6 +6,8 @@ class BooksController < ApplicationController
 
 	def new
 
+		@book = Books.new
+		@publishers = Publishers.find (:all, :order => 'name')
 	end
 
 	def edit
@@ -15,6 +17,12 @@ class BooksController < ApplicationController
 	end
 
 	def create
+
+		@book = Books.new params[:books]
+		if @book.valid?
+			@book.save!
+		end
+		
 	end
 
 end

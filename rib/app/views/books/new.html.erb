@@ -1,7 +1,47 @@
 <h1>New books</h1>
 
-<% form_for(@books) do |f| %>
+<% form_for(@book) do |f| %>
   <%= f.error_messages %>
+
+  <p> titel 
+  <%= f.text_field :titel %>
+  </p>
+  <p> isbn 
+  <%= f.text_field :isbn %>
+  </p>
+  <p> bestellnummer 
+  <%= f.text_field :bestellnummer %>
+  </p>
+  <p> jahr 
+  <%= f.text_field :jahr %>
+  </p>
+  <p> auflage 
+  <%= f.text_field :auflage %>
+  </p>
+  <p> auflagejahr 
+  <%= f.text_field :auflagejahr %>
+  </p>
+
+  <p> verlag 
+    <%= f.collection_select :verlag, @publishers, :id, :name %>
+  </p>
+
+  <p> originaltitel 
+  <%= f.text_field :originaltitel %>
+  </p>
+  <p> sprache 
+  <%= f.text_field :sprache %>
+  </p>
+  <p> originalsprache 
+  <%= f.text_field :originalsprache %>
+  </p>
+  <p> seiten 
+  <%= f.text_field :seiten %>
+  </p>
+  <p> nummer 
+  <%= f.text_field :nummer %>
+  </p>
+
 
   <p>
     <%= f.submit 'Create' %>
