@@ -1,4 +1,4 @@
-class PublishersController < ApplicationController
+class PublishersController < BaseController
 
 
 	def index

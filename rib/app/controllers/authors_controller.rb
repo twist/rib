@@ -1,2 +1,2 @@
-class AuthorsController < ApplicationController
+class AuthorsController < BaseController
 end
