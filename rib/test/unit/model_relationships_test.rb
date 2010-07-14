@@ -12,6 +12,20 @@ class ModelRelationshipsTest < ActiveSupport::TestCase
 	def test_author_books
 
 		b = Books.first
+		a = Authors.first
+		assert b.authors.blank?
+
+		b.authors << a
+		assert_equal "hans", b.authors.first.vorname
+
+		b.save!
+
+		b2 = Books.first
+		assert_equal "hans", b2.authors.first.vorname
+
+
+		a2 = Authors.first
+		assert a2.books.any?
 	end
 
 
