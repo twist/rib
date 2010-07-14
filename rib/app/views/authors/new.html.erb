@@ -1,0 +1,15 @@
+
+
+<% form_for(@author) do |f| %>
+	<% @author.attributes.keys.each do |att| %>
+		<p>
+		<%= att %>  
+		<%= f.text_field att.to_sym %>	
+		</p>
+	<% end%>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<%end%>
+
+
