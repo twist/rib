@@ -1,3 +1,4 @@
 config/database.yml
 db/bibliothek.sql
 log/*.log
+*.swp
