@@ -4,4 +4,13 @@ class Authors < ActiveRecord::Base
                                    :class_name => 'Books', 
 				   :association_foreign_key => 'buch_id'
 	set_table_name :autoren
+
+	def self.select_list
+		auth = Authors.all
+		select_list = []
+		auth.each  { |a|
+			select_list << ["#{a.nachname}, #{a.vorname}", a.id]
+		}
+		select_list
+	end
 end

@@ -3,6 +3,14 @@
 <% form_for(@book) do |f| %>
   <%= f.error_messages %>
 
+  <p> verlag 
+    <%= f.collection_select :verlag, @publishers, :id, :name %>
+  </p>
+
+  <p> autor 
+  <%= select( "authors", "id",  @authors_list ) %> 
+  </p>
+  
   <p> titel 
   <%= f.text_field :titel %>
   </p>
@@ -26,6 +34,9 @@
     <%= f.collection_select :verlag, @publishers, :id, :name %>
   </p>
 
+  <p> verlag 
+    <%= f.collection_select :verlag, @publishers, :id, :name %>
+  </p>
   <p> originaltitel 
   <%= f.text_field :originaltitel %>
   </p>
