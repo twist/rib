@@ -1,5 +1,6 @@
 class BooksController < BaseController
 
+	layout 'std'
 	def index
 		@books = Books.all
 	end
