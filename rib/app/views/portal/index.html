@@ -1,0 +1,27 @@
+
+<h1> Bibliothek </h1>
+
+<table border="1">
+	<tr>
+	<td> Bücher </td>
+	<td> Autoren </td>
+	<td> Verlage </td>
+	</tr>
+	<% @books.each do |b| %>
+	<tr>
+		<td>
+			<%= b.titel  %> 
+		</td>
+		<td>
+			<% if b.authors.any?%>
+			<%= b.authors.first.nachname %>, <%= b.authors.first.vorname %> 
+			<%end%>
+		</td>
+		<td>
+			<% if b.publishers %>
+			<%= b.publishers.name %>
+			<%end%>
+		</td>
+	</tr>
+	<%end%>
+</table>
