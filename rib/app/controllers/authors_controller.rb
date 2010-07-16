@@ -17,7 +17,7 @@ class AuthorsController < BaseController
 	end
 
 	def create
-		@author = Authors.new params[:books]
+		@author = Authors.new params[:authors]
 		if @author.valid?
 			@author.save!
 		end

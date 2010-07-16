@@ -9,11 +9,11 @@ class PublishersController < BaseController
 	end
 
 	def create 
-		@publisher = Publishers.new params[:books]
+		@publisher = Publishers.new params[:publishers]
 		if @publisher.valid?
 			@publisher.save!
 		end
-		redirect_to :index
+		redirect_to :action => :new
 	end
 
 	def update
