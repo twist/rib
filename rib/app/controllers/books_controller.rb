@@ -23,7 +23,7 @@ class BooksController < BaseController
 		@book.authors << (Authors.find params[:authors][:id])
 		if @book.valid?
 			@book.save!
-		redirect_to :action => :index
+		redirect_to :action => :new
 		else
 			@publishers = Publishers.find (:all, :order => 'name')
 			@authors = Authors.find (:all, :order => 'nachname')
