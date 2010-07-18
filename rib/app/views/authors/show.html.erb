@@ -1,0 +1,16 @@
+
+<h1> <%= @author.nachname %>, <%= @author.vorname %> </h1>
+<table border="1">
+  <tr>
+    <td> Autor </td>
+    <td> Buecher </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <% @author.books.each do |b| %>
+      <%= link_to b.id, book_path(b.id)%> <%=b.titel %> <br />
+      <%end%>
+    </td>
+  </tr>
+</table>

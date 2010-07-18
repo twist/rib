@@ -10,6 +10,10 @@ class AuthorsController < BaseController
 		@author = Authors.new
 	end
 
+  def show
+    
+    @author = Authors.find params[:id]
+  end
 	def edit
 	end
 

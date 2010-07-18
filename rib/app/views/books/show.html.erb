@@ -20,8 +20,9 @@
       ID: <%= @book.id %> <br /> 
       Nummer: <%= @book.nummer %> <br /> 
     </td>
-    <td> <% @book.authors.each  do |a| %>
-      <%= link_to a.id, author_path(a.id) %> <%= a.nachname %>, <%= a.vorname %>
+    <td> 
+      <% @book.authors.each  do |a| %>
+        <%= link_to a.id, author_path(a.id) %> <%= a.nachname %>, <%= a.vorname %>
       <%end%>
     </td>
     <td>
