@@ -10,4 +10,13 @@ class PortalController < BaseController
 		@authors = Authors.find (:all, :order => "nachname" )
 		@publishers = Publishers.find (:all, :order => "name" )
 	end
+
+  def paged
+    index
+    params[:id] = 'A' if params[:id].nil?
+    @books_paged = []
+    @books.each do |b|
+      @books_paged << b if b.titel =~ /^#{params[:id]}.*/i
+    end
+  end
 end

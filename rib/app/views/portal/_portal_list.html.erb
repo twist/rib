@@ -1,0 +1,17 @@
+	<% books.each do |b| %>
+	<tr>
+		<td>
+            <%= link_to  b.id, book_path(b.id) %> <%= b.titel %>
+		</td>
+		<td>
+			<% b.authors.each do |a|%>
+      <%= link_to a.id, author_path(a.id) %> <%= a.nachname %>, <%= a.vorname %> 
+			<%end%>
+		</td>
+		<td>
+			<% if b.publishers %>
+      <%= link_to b.publishers.id, publisher_path(b.publishers.id) %> <%= b.publishers.name %>
+			<%end%>
+		</td>
+	</tr>
+	<%end%>

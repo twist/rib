@@ -7,12 +7,19 @@
         <tr>
                 <td>    Bücher: <%= @books.size %> (<%= @page_count %> seiten), Autoren: <%= @authors.size %></td>
         </tr>
+        <tr>
+          <td>
+          <% ('A'..'Z').to_a.each do |letter| %>
+            <%= link_to letter, paged_portal_path(letter) %>
+            <%end%>
+            <td>
+          </tr>
 	<tr>
 	<td> Bücher </td>
 	<td> Autoren </td>
 	<td> Verlage </td>
 	</tr>
   <%= render :partial => 'portal_list' , :locals => {
-                                            :books => @books }
+                                            :books => @books_paged }
    %>
 </table>

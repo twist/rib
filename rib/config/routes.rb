@@ -42,5 +42,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :books
   map.resources :publishers
   map.resources :authors
-  map.resources :portal
+  map.resources :portal, :member => { :paged => :get }
 end
