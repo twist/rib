@@ -1,3 +1,33 @@
 
-<%= link_to 'Edit', edit_books_path(@books) %> |
-<%= link_to 'Back', books_path %>
+<h1> <%= @book.titel %> </h1>
+
+<table border="1">
+  <tr>
+    <td> Buchdaten </td>
+    <td> Autordaten </td>
+    <td> Verlagsdaten </td>
+  </tr>
+  <tr>
+    <td>
+      Titel: <%= @book.titel %> <br /> 
+      ISBN: <%= @book.isbn %> <br /> 
+      Bestellnummer: <%= @book.bestellnummer %> <br /> 
+      Jahr: <%= @book.jahr %> <br /> 
+      Auflage: <%= @book.auflage %> <br /> 
+      Auflagejahr: <%= @book.auflagejahr %> <br /> 
+      Originaltitel: <%= @book.originaltitel %> <br /> 
+      Seiten: <%= @book.seiten %> <br /> 
+      ID: <%= @book.id %> <br /> 
+      Nummer: <%= @book.nummer %> <br /> 
+    </td>
+    <td> <% @book.authors.each  do |a| %>
+      <%= link_to a.id, author_path(a.id) %> <%= a.nachname %>, <%= a.vorname %>
+      <%end%>
+    </td>
+    <td>
+      <%= link_to @book.publishers.id, publishers_path(@book.publishers.id)  %>
+      <%= @book.publishers.name %> <%= @book.publishers.ort %>  
+    </td>
+  </tr>
+</table>
+

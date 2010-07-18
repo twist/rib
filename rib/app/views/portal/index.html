@@ -10,7 +10,7 @@
 	<% @books.each do |b| %>
 	<tr>
 		<td>
-			<%= b.titel  %> 
+            <%= link_to  b.titel, book_path(b.id) %>
 		</td>
 		<td>
 			<% if b.authors.any?%>
