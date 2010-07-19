@@ -7,7 +7,7 @@ class Genres < ActiveRecord::Base
   set_table_name 'genres'
 
 	def self.select_list
-		auth = Genres.find (:all, :order => 'name')
+		auth = Genres.find(:all, :order => 'name')
 		select_list = []
 		auth.each  { |g|
 			select_list << ["#{g.name}", g.id]

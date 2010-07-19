@@ -6,7 +6,7 @@ class Authors < ActiveRecord::Base
 	set_table_name :autoren
 
 	def self.select_list
-		auth = Authors.find (:all, :order => 'nachname')
+		auth = Authors.find(:all, :order => 'nachname')
 		select_list = []
 		auth.each  { |a|
 			select_list << ["#{a.nachname}, #{a.vorname}", a.id]

@@ -6,7 +6,7 @@ class Types < ActiveRecord::Base
 
   set_table_name 'rubriken'
 	def self.select_list
-		auth = Types.find (:all, :order => 'name')
+		auth = Types.find(:all, :order => 'name')
 		select_list = []
 		auth.each  { |g|
 			select_list << ["#{g.name}", g.id]
