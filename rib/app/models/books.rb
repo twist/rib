@@ -13,5 +13,7 @@ class Books < ActiveRecord::Base
                                    :class_name => 'Types', 
 				   :association_foreign_key => 'rubrik_id'
   belongs_to		  :publishers, :foreign_key => 'verlag'
+
+  has_many                :checkouts, :foreign_key => 'buch_id'
   set_table_name :buecher
 end
