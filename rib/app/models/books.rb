@@ -7,11 +7,11 @@ class Books < ActiveRecord::Base
   has_and_belongs_to_many :genres, :join_table => 'buecher_genres', 
                                    :foreign_key => 'buch_id', 
                                    :class_name => 'Genres', 
-				                           :association_foreign_key => 'genre_id'
+				   :association_foreign_key => 'genre_id'
   has_and_belongs_to_many :types, :join_table => 'buecher_rubrik', 
                                    :foreign_key => 'buch_id', 
                                    :class_name => 'Types', 
-				                           :association_foreign_key => 'rubrik_id'
+				   :association_foreign_key => 'rubrik_id'
   belongs_to		  :publishers, :foreign_key => 'verlag'
   set_table_name :buecher
 end
