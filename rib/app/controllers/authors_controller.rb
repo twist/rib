@@ -25,6 +25,6 @@ class AuthorsController < BaseController
 		if @author.valid?
 			@author.save!
 		end
-		redirect_to :action => :index
+		redirect_to :action => :new
 	end
 end
