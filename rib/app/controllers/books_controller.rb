@@ -29,6 +29,7 @@ class BooksController < BaseController
 		@book = Books.new params[:books]
 		@book.authors <<(Authors.find params[:authors][:id])
 		@book.genres <<(Genres.find params[:genres][:id])
+		@book.types <<(Types.find params[:types][:id])
 		if @book.valid?
 			@book.save!
 		redirect_to :action => :new
