@@ -4,7 +4,7 @@
   <%= f.error_messages %>
 
   <p> verlag 
-    <%= f.collection_select :verlag, @publishers, :id, :name %>
+    <%= f.collection_select :publisher, @publishers, :id, :name %>
   </p>
 
   <p> autor 
@@ -18,38 +18,38 @@
   <%= select( "types", "id",  @types_list ) %> 
   </p>
   <p> titel 
-  <%= f.text_field :titel %>
+  <%= f.text_field :title %>
   </p>
   <p> isbn 
   <%= f.text_field :isbn %>
   </p>
   <p> bestellnummer 
-  <%= f.text_field :bestellnummer %>
+  <%= f.text_field :order_no %>
   </p>
   <p> jahr 
-  <%= f.text_field :jahr %>
+  <%= f.text_field :date %>
   </p>
   <p> auflage 
-  <%= f.text_field :auflage %>
+  <%= f.text_field :edition %>
   </p>
   <p> auflagejahr 
-  <%= f.text_field :auflagejahr %>
+  <%= f.text_field :year_of_edition %>
   </p>
 
   <p> originaltitel 
-  <%= f.text_field :originaltitel %>
+  <%= f.text_field :original_title %>
   </p>
   <p> sprache 
-  <%= f.text_field :sprache %>
+  <%= f.text_field :language %>
   </p>
   <p> originalsprache 
-  <%= f.text_field :originalsprache %>
+  <%= f.text_field :original_language %>
   </p>
   <p> seiten 
-  <%= f.text_field :seiten %>
+  <%= f.text_field :pages %>
   </p>
   <p> nummer 
-  <%= f.text_field :nummer %>
+  <%= f.text_field :number %>
   </p>
 
 

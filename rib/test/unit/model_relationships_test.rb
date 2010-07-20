@@ -16,12 +16,12 @@ class ModelRelationshipsTest < ActiveSupport::TestCase
 		assert b.authors.blank?
 
 		b.authors << a
-		assert_equal "hans", b.authors.first.vorname
+		assert_equal "hans", b.authors.first.firstname
 
 		b.save!
 
 		b2 = Books.first
-		assert_equal "hans", b2.authors.first.vorname
+		assert_equal "hans", b2.authors.first.firstname
 
 
 		a2 = Authors.first
