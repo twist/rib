@@ -20,13 +20,13 @@ class GbClient
   #
   def search_by_isbn(isbn, object = nil)
 
-    isbn.gsub!(/-/,"")
+    return nil if (isbn = isbn.gsub!(/-/,"")).nil?
     client = HTTPClient.new
     html = client.get "http://books.google.com/books/feeds/volumes?q=#{isbn}&prettyprint=true"
     data = Hash.from_xml html.body.content
 
     entry = parse_data(data)
-    if onject.respond_to? :from_hash
+    if !object.nil? and object.respond_to? :from_hash
       object.from_hash(entry)
       object
     else
@@ -38,10 +38,9 @@ class GbClient
   def parse_data(data)
 
     h = Hash.new
-    entry = data["feed"]["entry"]
-    puts entry.inspect
+    return if (entry = data["feed"]["entry"]).nil?
     t = ""
-    h[:title] = (Array === entry["title"]? entry["title"].map{|d| t += d}.last : entry["title"])
+    h[:title] = ( (!entry.nil?  and Array) === entry["title"]? entry["title"].map{|d| t += d}.last : entry["title"])
     puts entry.keys.inspect
     h[:author] = entry["creator"]
     h[:pages] = entry['format'].first.gsub!(/[a-zA-Z]/,"")
