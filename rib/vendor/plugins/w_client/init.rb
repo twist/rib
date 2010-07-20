@@ -1,2 +1,2 @@
 # Include hook code here
-require 'gb_client'
+require 'w_client'
