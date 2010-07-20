@@ -6,14 +6,32 @@ require 'nokogiri'
 
 class GbClient
 
-  def search_by_isbn(isbn)
+  #
+  #
+  # searches books.google.com for books by isbn.
+  #
+  # returns either a hash, or
+  # if given an *object* providing a
+  # *from_hash(hash)* method will fill
+  # it with the data.
+  # the object members must be named like the 
+  # keys in the hash.
+  #
+  #
+  def search_by_isbn(isbn, object = nil)
 
     isbn.gsub!(/-/,"")
     client = HTTPClient.new
     html = client.get "http://books.google.com/books/feeds/volumes?q=#{isbn}&prettyprint=true"
     data = Hash.from_xml html.body.content
 
-    parse_data(data)
+    entry = parse_data(data)
+    if onject.respond_to? :from_hash
+      object.from_hash(entry)
+      object
+    else
+      entry
+    end
 
   end
 
