@@ -13,7 +13,24 @@ class GbClient
     html = client.get "http://books.google.com/books/feeds/volumes?q=#{isbn}&prettyprint=true"
     data = Hash.from_xml html.body.content
 
-    data['feed']['entry'] 
+    parse_data(data)
+
+  end
+
+  def parse_data(data)
+
+    h = Hash.new
+    entry = data["feed"]["entry"]
+    puts entry.inspect
+    t = ""
+    h[:title] = (Array === entry["title"]? entry["title"].map{|d| t += d}.last : entry["title"])
+    puts entry.keys.inspect
+    h[:author] = entry["creator"]
+    h[:pages] = entry['format'].first.gsub!(/[a-zA-Z]/,"")
+    h[:date] = entry["date"]
+    h[:isbn] = entry['identifier'].last 
+
+    h
 
   end
 
