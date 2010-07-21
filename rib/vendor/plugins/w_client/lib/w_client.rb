@@ -44,7 +44,7 @@ class WClient
   protected
 
   def access_key
-
+    return File.new("/home/twist/ak","r").gets.gsub(/\W/,"")
   end
   def search_isbndb
     html = @client.get("http://isbndb.com/api/books.xml?access_key=#{access_key}&index1=isbn&value1=#{@isbn}")
@@ -56,6 +56,7 @@ class WClient
     h[:title] = entry["Title"]
     h[:author] = entry["AuthorsText"].split(",").first
     h[:isbn10] = entry['isbn']
+    h[:publisher] = entry['PublisherText']
     h
   end
 
@@ -82,6 +83,7 @@ class WClient
       :author => nil,
       :pages => nil,
       :date => nil,
+      :publisher => nil,
       :isbn10 => nil,
       :isbn13 => nil
     }

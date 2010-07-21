@@ -4,7 +4,7 @@ class Authors < ActiveRecord::Base
                                    :class_name => 'Books', 
 				   :association_foreign_key => 'book_id'
 
-	def self.select_list
+	def self.select_list()
 		auth = Authors.find(:all, :order => 'lastname')
 		select_list = []
 		auth.each  { |a|
