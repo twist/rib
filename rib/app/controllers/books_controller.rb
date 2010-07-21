@@ -14,6 +14,26 @@ class BooksController < BaseController
 		@types_list = Types.select_list
 	end
 
+        def search_by_isbn
+          @book = Books.new
+          
+        end
+
+        def new_by_isbn
+        
+          @book = Books.new params[:books]
+          @book = WClient.new.search_by_isbn(@book.isbn, @book)
+          
+          @publishers = Publishers.find(:all, :order => 'name')
+          @authors_list = Authors.select_list
+          @genres_list = Genres.select_list
+          @types_list = Types.select_list
+
+          render :new
+
+
+        end
+
 	def edit
 	end
 

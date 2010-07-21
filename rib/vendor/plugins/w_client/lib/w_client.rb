@@ -24,7 +24,7 @@ class WClient
     @book_hash = std_entry
     @isbn = isbn
    
-    @book_hash.merge!(search_google_books)
+    @book_hash.merge!(search_google_books || {})
     isbndb_hash = search_isbndb
     @book_hash.each {|k,v|
      @book_hash[k] = isbndb_hash[k] if @book_hash[k].blank? 
@@ -51,6 +51,7 @@ class WClient
     data = Hash.from_xml html.body.content
 
     h = Hash.new
+    return {} if data["ISBNdb"]["BookList"].nil?
     entry = data["ISBNdb"]["BookList"]["BookData"]
     h[:title] = entry["Title"]
     h[:author] = entry["AuthorsText"].split(",").first
@@ -64,7 +65,7 @@ class WClient
     data = Hash.from_xml html.body.content
 
     h = Hash.new
-    return if (entry = data["feed"]["entry"]).nil?
+    return {} if (entry = data["feed"]["entry"]).nil?
     t = ""
     h[:title] = ( (!entry.nil?  and Array) === entry["title"]? entry["title"].map{|d| t += d}.last : entry["title"])
     h[:author] = entry["creator"]

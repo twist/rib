@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
 	
-  map.resources :books
+  map.resources :books, :collection => { :search_by_isbn => :get, :new_by_isbn => :post}
   map.resources :publishers
   map.resources :authors
   map.resources :portal, :member => { :paged => :get }

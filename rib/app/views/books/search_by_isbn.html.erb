@@ -1,0 +1,10 @@
+<% form_for @book,  :url => new_by_isbn_books_path do |f| %>
+  <%= f.error_messages %>
+
+  <p> isbn 
+  <%= f.text_field :isbn %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
