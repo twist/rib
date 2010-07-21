@@ -19,16 +19,17 @@ class WClient
   #
   def search_by_isbn(isbn, object = nil)
 
-    puts isbn.inspect
-    puts isbn = isbn.gsub(/-/,"")
     return nil if (isbn = isbn.gsub(/-/,"")).nil?
     @client = HTTPClient.new
     @book_hash = std_entry
     @isbn = isbn
-
+   
     @book_hash.merge!(search_google_books)
+    isbndb_hash = search_isbndb
+    @book_hash.each {|k,v|
+     @book_hash[k] = isbndb_hash[k] if @book_hash[k].blank? 
+    }
 
-    search_isbndb
     
 
     if !object.nil? and object.respond_to? :from_hash
@@ -46,11 +47,15 @@ class WClient
 
   end
   def search_isbndb
-    puts @isbn.inspect
-    puts access_key.inspect
     html = @client.get("http://isbndb.com/api/books.xml?access_key=#{access_key}&index1=isbn&value1=#{@isbn}")
-    puts html.inspect
+    data = Hash.from_xml html.body.content
 
+    h = Hash.new
+    entry = data["ISBNdb"]["BookList"]["BookData"]
+    h[:title] = entry["Title"]
+    h[:author] = entry["AuthorsText"].split(",").first
+    h[:isbn10] = entry['isbn']
+    h
   end
 
   def search_google_books
@@ -58,22 +63,16 @@ class WClient
     html = @client.get "http://books.google.com/books/feeds/volumes?q=#{@isbn}&prettyprint=true"
     data = Hash.from_xml html.body.content
 
-    parse_google_book(data)
-  end
-  def parse_google_book(data)
-
     h = Hash.new
     return if (entry = data["feed"]["entry"]).nil?
     t = ""
     h[:title] = ( (!entry.nil?  and Array) === entry["title"]? entry["title"].map{|d| t += d}.last : entry["title"])
-    puts entry.keys.inspect
     h[:author] = entry["creator"]
     h[:pages] = entry['format'].first.gsub!(/[a-zA-Z]/,"")
     h[:date] = entry["date"]
-    h[:isbn] = entry['identifier'].last 
+    h[:isbn13] = entry['identifier'].last 
 
     h
-
   end
 
   def std_entry
@@ -82,7 +81,8 @@ class WClient
       :author => nil,
       :pages => nil,
       :date => nil,
-      :isbn => nil
+      :isbn10 => nil,
+      :isbn13 => nil
     }
   end
 

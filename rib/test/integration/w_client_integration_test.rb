@@ -1,5 +1,6 @@
 
 require 'test_helper'
+require 'mocha'
 
 class WebOfBooksClientIntegration_test < ActionController::IntegrationTest
 
