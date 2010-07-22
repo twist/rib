@@ -55,8 +55,8 @@ class WClient
     entry = data["ISBNdb"]["BookList"]["BookData"]
     h[:title] = entry["Title"]
     h[:author] = entry["AuthorsText"].split(",").first
-    h[:isbn10] = entry['isbn']
-    h[:publisher] = entry['PublisherText']
+    h[:isbn10] = entry["isbn"]
+    h[:publisher] = entry["PublisherText"]
     h
   end
 
