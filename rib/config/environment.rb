@@ -40,4 +40,4 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 
-NotInRepo.new("blub")
+NotInRepo.new("blub", nil, nil)

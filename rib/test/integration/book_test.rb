@@ -12,7 +12,7 @@ class BookTest < ActionController::IntegrationTest
 
     post '/books/new_by_isbn', :books => {:isbn10 => "1595404325"}
     assert_response :success
-    assert_match '<option value="2" selected="selected">Orwell, George</option></select>', @response.body, @response.body
+    assert_match 'selected="selected">Orwell, George</option></select>', @response.body, @response.body
 
     
 

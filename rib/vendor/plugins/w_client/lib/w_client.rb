@@ -5,6 +5,10 @@ require 'nokogiri'
 
 class WClient
 
+  attr_accessor :access_key
+
+
+
   #
   #
   # searches books.google.com for books by isbn.
@@ -43,11 +47,9 @@ class WClient
 
   protected
 
-  def access_key
-    return File.new("/home/twist/ak","r").gets.gsub(/\W/,"")
-  end
   def search_isbndb
-    html = @client.get("http://isbndb.com/api/books.xml?access_key=#{access_key}&index1=isbn&value1=#{@isbn}")
+    raise @access_key.inspect
+    html = @client.get("http://isbndb.com/api/books.xml?access_key=#{@access_key}&index1=isbn&value1=#{@isbn}")
     data = Hash.from_xml html.body.content
 
     h = Hash.new
