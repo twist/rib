@@ -2,12 +2,12 @@ class PortalController < BaseController
 
 	def index
 
-		@books = Books.find(:all, :order => "titel" )
+		@books = Books.find(:all, :order => "title" )
     @page_count = 0
     @books.each do |b|
-      @page_count += b.seiten.to_i
+      @page_count += b.pages.to_i
     end
-		@authors = Authors.find(:all, :order => "nachname" )
+		@authors = Authors.find(:all, :order => "lastname" )
 		@publishers = Publishers.find(:all, :order => "name" )
 	end
 

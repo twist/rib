@@ -79,7 +79,7 @@ class BooksController < BaseController
 
   def create
     @book = Books.new params[:books]
-    @book.authors <<(Authors.find params[:authors][:id])
+    @book.authors <<(Authors.find params[:author][:id])
     @book.genres <<(Genres.find params[:genres][:id])
     @book.types <<(Types.find params[:types][:id])
     if @book.valid?
