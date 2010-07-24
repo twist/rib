@@ -48,10 +48,8 @@ class WClient
   protected
 
   def search_isbndb
-    raise @access_key.inspect
     html = @client.get("http://isbndb.com/api/books.xml?access_key=#{@access_key}&index1=isbn&value1=#{@isbn}")
     data = Hash.from_xml html.body.content
-
     h = Hash.new
     return {} if data["ISBNdb"]["BookList"].nil?
     entry = data["ISBNdb"]["BookList"]["BookData"]

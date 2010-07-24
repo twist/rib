@@ -24,8 +24,8 @@ class BooksController < BaseController
     @book = Books.new params[:books]
     @book = Books.new params[:books]
     @client = WClient.new
-    @client.access_key = NotInRepo.data[:books][:access_key]
-    @book_hash = WClient.new.search_by_isbn(@book.isbn10)
+    @client.access_key = NotInRepo.access_key
+    @book_hash = @client.search_by_isbn(@book.isbn10)
 
     @publisher = Publishers.find_by_name(@book_hash[:publisher])
     if @publisher.nil?
