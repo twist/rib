@@ -28,11 +28,14 @@ class WClient
     @book_hash = std_entry
     @isbn = isbn
    
+    search_amazon
+    return
     @book_hash.merge!(search_google_books || {})
     isbndb_hash = search_isbndb
     @book_hash.each {|k,v|
      @book_hash[k] = isbndb_hash[k] if @book_hash[k].blank? 
     }
+
 
     
 
@@ -45,7 +48,8 @@ class WClient
 
   end
 
-  protected
+  attr_accessor :isbn
+
 
   def search_isbndb
     html = @client.get("http://isbndb.com/api/books.xml?access_key=#{@access_key}&index1=isbn&value1=#{@isbn}")
@@ -58,6 +62,19 @@ class WClient
     h[:isbn10] = entry["isbn"]
     h[:publisher] = entry["PublisherText"]
     h
+  end
+
+  def search_amazon
+    
+    #1. get a list of all matches
+    html = @client.get("http://www.amazon.de/s/ref=nb_sb_noss?__mk_de_DE=%C5M%C5Z%D5%D1&url=search-alias%3Dstripbooks&field-keywords=#{@isbn}&x=0&y=0")
+    # 2. get the first entry
+    puts html.body.content
+    #puts html.body.content.match(/<div class="productTitle"><a href="(.*)"> \w/)[1]
+    puts html.body.content.match(/<div class="p/).inspect
+
+
+    
   end
 
   def search_google_books

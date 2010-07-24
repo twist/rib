@@ -17,4 +17,11 @@ class WebOfBooksClientIntegration_test < ActionController::IntegrationTest
     book = client.search_by_isbn("9780595197798", book)
   end
 
+  def test_search_amazon
+
+
+    client = WClient.new
+    client.search_by_isbn("3746615143")
+  end
+
 end
