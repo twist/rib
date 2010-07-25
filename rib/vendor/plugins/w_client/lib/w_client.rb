@@ -28,7 +28,9 @@ class WClient
     @book_hash = std_entry
     @isbn = isbn
    
-    search_amazon
+    puts search_amazon.inspect
+    #puts search_google_books.inspect
+    #puts search_isbndb.inspect
     return
     @book_hash.merge!(search_google_books || {})
     isbndb_hash = search_isbndb
@@ -69,11 +71,17 @@ class WClient
     #1. get a list of all matches
     html = @client.get("http://www.amazon.de/s/ref=nb_sb_noss?__mk_de_DE=%C5M%C5Z%D5%D1&url=search-alias%3Dstripbooks&field-keywords=#{@isbn}&x=0&y=0")
     # 2. get the first entry
-    puts html.body.content
-    #puts html.body.content.match(/<div class="productTitle"><a href="(.*)"> \w/)[1]
-    puts html.body.content.match(/<div class="p/).inspect
+    book_link =  html.body.content.match(/<td class="dataColumn">.*\n<a href="(.*)"><span/)[1]
 
+    html = @client.get(book_link)
 
+    h = Hash.new
+    h[:publisher] = html.body.content.match(/<li><b>Verlag:<\/b>(.*?)<\/li>/)[1]
+    h[:isbn10] = html.body.content.match(/<li><b>ISBN-10:<\/b>(.*?)<\/li>/)[1]
+    h[:isbn13] = html.body.content.match(/<li><b>ISBN-13:<\/b>(.*?)<\/li>/)[1]
+    h[:original_title] = html.body.content.match(/<li><b>Originaltitel:<\/b>.*?>(.*?)<\/a><\/li>/)[1]
+    h[:author] = html.body.content.match(/field-author=.*?>(.*?)<\/a>/)[1]
+    h
     
   end
 
@@ -102,6 +110,7 @@ class WClient
       :date => nil,
       :publisher => nil,
       :isbn10 => nil,
+      :original_title => nil,
       :isbn13 => nil
     }
   end
