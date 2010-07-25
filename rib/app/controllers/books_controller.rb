@@ -26,15 +26,22 @@ class BooksController < BaseController
     @client = WClient.new
     @client.access_key = NotInRepo.access_key
     @book_hash = @client.search_by_isbn(@book.isbn10)
-
-    @publisher = Publishers.find_by_name(@book_hash[:publisher])
-    if @publisher.nil?
-      @publisher = Publishers.new
-      @publisher.name = @book_hash[:publisher]
-      @publisher.city = "NULL" 
-      @publisher.save!
+    if @book_hash[:title].nil? 
+      redirect_to :action => :new 
+      return
     end
-    @book_hash[:publisher] = @publisher.id
+    unless @book_hash[:publisher].nil?
+      @publisher = Publishers.find_by_name(@book_hash[:publisher])
+      if @publisher.nil?
+        @publisher = Publishers.new
+        @publisher.name = @book_hash[:publisher]
+        @publisher.city = "NULL" 
+        @publisher.save!
+      end
+      @book_hash[:publisher] = @publisher.id
+    else
+      @publisher = Publishers.new
+    end
 
 
     firstname = @book_hash[:author].split(/ /).first 
@@ -79,7 +86,7 @@ class BooksController < BaseController
 
   def create
     @book = Books.new params[:books]
-    @book.authors <<(Authors.find params[:author][:id])
+    @book.authors <<(Authors.find params[:authors][:id])
     @book.genres <<(Genres.find params[:genres][:id])
     @book.types <<(Types.find params[:types][:id])
     if @book.valid?

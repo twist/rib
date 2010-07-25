@@ -52,6 +52,7 @@ class WClient
     data = Hash.from_xml html.body.content
     h = Hash.new
     return {} if data["ISBNdb"]["BookList"].nil?
+    return {} if data["ISBNdb"]["BookList"]["total_results"] = "0"
     entry = data["ISBNdb"]["BookList"]["BookData"]
     h[:title] = entry["Title"]
     h[:author] = entry["AuthorsText"].split(",").first
