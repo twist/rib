@@ -27,16 +27,23 @@ class WClient
     @client = HTTPClient.new
     @book_hash = std_entry
     @isbn = isbn
-   
-    @book_hash.merge!(search_google_books || {})
+ 
+    ol_hash = search_open_library 
     isbndb_hash = search_isbndb
+    gb_hash = search_google_books
+    @book_hash.each {|k,v|
+     @book_hash[k] = ol_hash[k] if @book_hash[k].blank? 
+    }
     @book_hash.each {|k,v|
      @book_hash[k] = isbndb_hash[k] if @book_hash[k].blank? 
     }
+    @book_hash.each {|k,v|
+     @book_hash[k] = gb_hash[k] if @book_hash[k].blank? 
+    }
 
-    
 
     if !object.nil? and object.respond_to? :from_hash
+      puts @book_hash.inspect
       object.from_hash(@book_hash)
       object
     else
@@ -61,6 +68,28 @@ class WClient
     h
   end
 
+
+  def search_open_library
+
+    html = @client.get("http://openlibrary.org/api/books?bibkeys=ISBN:#{@isbn}")
+    data = html.body.content
+    return {} if data.match("\/books\/(.*?)\/").nil?
+    id = data.match("\/books\/(.*?)\/")[1]
+    data = @client.get("http://openlibrary.org/books/#{id}.rdf")
+    puts data
+    entry= Hash.from_xml(data.body.content)
+    entry = entry["RDF"]["Description"]
+    h = Hash.new
+    h[:title] = entry["title"]
+    h[:pages] = entry["extend"]
+    h[:language] = entry["language"]
+    h[:isbn10] = entry["isbn10"]
+    h[:isbn13] = entry["isbn13"]
+    h[:publisher] = entry["publisher"]
+    h[:author] = entry["authorList"]["Description"]["value"]
+    h
+
+  end
   def search_google_books
 
     html = @client.get "http://books.google.com/books/feeds/volumes?q=#{@isbn}&prettyprint=true"
@@ -84,6 +113,7 @@ class WClient
       :author => nil,
       :pages => nil,
       :date => nil,
+      :language => nil,
       :publisher => nil,
       :isbn10 => nil,
       :isbn13 => nil
