@@ -36,4 +36,12 @@ class WebOfBooksClientIntegration_test < ActionController::IntegrationTest
     book = client.search_by_isbn("9780595197798", book)
   end
 
+  def test_gier
+
+    client = WClient.new
+    client.access_key = NotInRepo.access_key
+
+    book = client.search_by_isbn("9783404156146")
+  end
+
 end

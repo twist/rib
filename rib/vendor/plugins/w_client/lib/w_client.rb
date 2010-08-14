@@ -98,7 +98,8 @@ class WClient
     h = Hash.new
     return {} if (entry = data["feed"]["entry"]).nil?
     t = ""
-    h[:title] = ( (!entry.nil?  and Array) === entry["title"]? entry["title"].map{|d| t += d}.last : entry["title"])
+    entry = entry.first if Array === entry
+    h[:title] = ( (!entry.nil?  and Array === entry["title"])? entry["title"].map{|d| t += d}.last : entry["title"])
     h[:author] = entry["creator"]
     h[:pages] = entry['format'].first.gsub!(/[a-zA-Z]/,"")
     h[:date] = entry["date"]
