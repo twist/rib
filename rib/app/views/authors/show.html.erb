@@ -1,5 +1,5 @@
 
-<h1> <%= @author.nachname %>, <%= @author.vorname %> </h1>
+<h1> <%= @author.lastname %>, <%= @author.firstname %> </h1>
 <table border="1">
   <tr>
     <td> Autor </td>
@@ -9,7 +9,7 @@
     <td></td>
     <td>
       <% @author.books.each do |b| %>
-      <%= link_to b.id, book_path(b.id)%> <%=b.titel %> <br />
+      <%= link_to b.id, book_path(b.id)%> <%=b.title %> <br />
       <%end%>
     </td>
   </tr>

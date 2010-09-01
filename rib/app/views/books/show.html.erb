@@ -1,5 +1,5 @@
 
-<h1> <%= @book.titel %> </h1>
+<h1> <%= @book.title %> </h1>
 
 <table border="1">
   <tr>
@@ -9,25 +9,26 @@
   </tr>
   <tr>
     <td>
-      Titel: <%= @book.titel %> <br /> 
-      ISBN: <%= @book.isbn %> <br /> 
-      Bestellnummer: <%= @book.bestellnummer %> <br /> 
-      Jahr: <%= @book.jahr %> <br /> 
-      Auflage: <%= @book.auflage %> <br /> 
-      Auflagejahr: <%= @book.auflagejahr %> <br /> 
-      Originaltitel: <%= @book.originaltitel %> <br /> 
-      Seiten: <%= @book.seiten %> <br /> 
+      Titel: <%= @book.title %> <br /> 
+      ISBN10: <%= @book.isbn10 %> <br /> 
+      ISBN13: <%= @book.isbn13 %> <br /> 
+      Bestellnummer: <%= @book.order_no %> <br /> 
+      Jahr: <%= @book.date %> <br /> 
+      Auflage: <%= @book.edition %> <br /> 
+      Auflagejahr: <%= @book.year_of_edition %> <br /> 
+      Originaltitel: <%= @book.original_title %> <br /> 
+      Seiten: <%= @book.pages %> <br /> 
       ID: <%= @book.id %> <br /> 
-      Nummer: <%= @book.nummer %> <br /> 
+      Nummer: <%= @book.number %> <br /> 
     </td>
     <td> 
       <% @book.authors.each  do |a| %>
-        <%= link_to a.id, author_path(a.id) %> <%= a.nachname %>, <%= a.vorname %>
+        <%= link_to a.id, author_path(a.id) %> <%= a.lastname %>, <%= a.firstname %>
       <%end%>
     </td>
     <td>
       <%= link_to @book.publishers.id, publishers_path(@book.publishers.id)  %>
-      <%= @book.publishers.name %> <%= @book.publishers.ort %>  
+      <%= @book.publishers.name %> <%= @book.publishers.city %>  
     </td>
   </tr>
 </table>

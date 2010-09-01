@@ -11,12 +11,37 @@ class WebOfBooksClientIntegration_test < ActionController::IntegrationTest
   def test_client_to_object
 
     client = WClient.new
-    pp NotInRepo.data
-    client.access_key = NotInRepo.data
+    client.access_key = NotInRepo.access_key
     book = Books.new
 
     book = client.search_by_isbn("9780595197798", book)
-    puts book.inspect
+  end
+
+
+  def test_not_found_on_isbndb
+    client = WClient.new
+    client.access_key = NotInRepo.access_key
+    book = Books.new
+
+    book = client.search_by_isbn("978337801925", book)
+    assert book[:title].blank?
+
+  end
+
+  def test_open_library
+    client = WClient.new
+    client.access_key = NotInRepo.access_key
+    book = Books.new
+
+    book = client.search_by_isbn("9780595197798", book)
+  end
+
+  def test_gier
+
+    client = WClient.new
+    client.access_key = NotInRepo.access_key
+
+    book = client.search_by_isbn("9783404156146")
   end
 
 end

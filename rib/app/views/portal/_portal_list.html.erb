@@ -1,11 +1,11 @@
 	<% books.each do |b| %>
 	<tr>
 		<td>
-            <%= link_to  b.id, book_path(b.id) %> <%= b.titel %>
+            <%= link_to  b.id, book_path(b.id) %> <%= b.title %>
 		</td>
 		<td>
 			<% b.authors.each do |a|%>
-      <%= link_to a.id, author_path(a.id) %> <%= a.nachname %>, <%= a.vorname %> 
+      <%= link_to a.id, author_path(a.id) %> <%= a.lastname %>, <%= a.firstname %> 
 			<%end%>
 		</td>
 		<td>
